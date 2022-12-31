@@ -1,25 +1,34 @@
-import logo from './logo.svg';
 import './App.css';
+import {RouterProvider ,createBrowserRouter, createRoutesFromElements, Route, NavLink, Outlet} from 'react-router-dom'
+import Samples from './components/Samples';
+import Contact from './components/Contact';
+import About from './components/About';
+
+const router = createBrowserRouter(createRoutesFromElements(
+  <Route path='/' element={<Layout/>}>
+    <Route index element={<Samples/>}/>
+    <Route path='samples' element={<Samples/>}/>
+    <Route path='contact' element={<Contact/>}/>
+    <Route path='about' element={<About/>}/>
+  </Route>
+))
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <RouterProvider router={router}>
+    </RouterProvider>
   );
+}
+
+function Layout (){
+  return <header>
+    <nav className='NavBar'>
+          <NavLink to='samples'>Samples</NavLink>
+          <NavLink to='contact'>Contact</NavLink>
+          <NavLink to='about'>About</NavLink>
+    </nav>
+    <Outlet />
+  </header>
 }
 
 export default App;
